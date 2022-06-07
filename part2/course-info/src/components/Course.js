@@ -24,7 +24,9 @@ const Part = ({ part }) => {
 
 const Total = ({ parts }) => (
   <p>
-    Number of exercises {parts.reduce((acc, part) => acc + part.exercises, 0)}
+    <b>
+      Total of {parts.reduce((acc, part) => acc + part.exercises, 0)} exercises
+    </b>
   </p>
 );
 
