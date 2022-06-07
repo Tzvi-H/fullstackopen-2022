@@ -21,7 +21,7 @@ const App = () => {
   return (
     <div>
       <Search query={query} setQuery={setQuery} />
-      <Countries countriesToDisplay={countriesToDisplay} />
+      <Countries countriesToDisplay={countriesToDisplay} setQuery={setQuery} />
     </div>
   );
 };
