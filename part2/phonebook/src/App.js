@@ -31,7 +31,10 @@ const App = () => {
             setPersons(
               persons.map((p) => (p.id !== newPerson.id ? p : newPerson))
             );
-            setMessage(`Changed number for ${newName}`);
+            setMessage({
+              text: `Changed number for ${newName}`,
+              type: "success",
+            });
             setTimeout(() => setMessage(null), 3000);
             setNewName("");
             setNewNumber("");
@@ -42,7 +45,10 @@ const App = () => {
         .create({ name: newName, number: newNumber })
         .then((newPerson) => {
           setPersons(persons.concat(newPerson));
-          setMessage(`Added ${newName}`);
+          setMessage({
+            text: `Added ${newName}`,
+            type: "success",
+          });
           setTimeout(() => setMessage(null), 3000);
           setNewName("");
           setNewNumber("");
@@ -52,11 +58,21 @@ const App = () => {
 
   const deletePerson = (person) => {
     if (window.confirm(`Delete ${person.name}?`)) {
-      personServices.destroy(person.id).then(() => {
-        setPersons(persons.filter((p) => p.id !== person.id));
-        setMessage(`Deleted ${person.name}`);
-        setTimeout(() => setMessage(null), 3000);
-      });
+      personServices
+        .destroy(person.id)
+        .then(() => {
+          setPersons(persons.filter((p) => p.id !== person.id));
+          setMessage({ text: `Deleted ${person.name}`, type: "success" });
+          setTimeout(() => setMessage(null), 3000);
+        })
+        .catch((e) => {
+          setPersons(persons.filter((p) => p.id !== person.id));
+          setMessage({
+            text: `${person.name} is already removed from the server`,
+            type: "error",
+          });
+          setTimeout(() => setMessage(null), 3000);
+        });
     }
   };
 
