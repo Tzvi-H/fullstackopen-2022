@@ -1,9 +1,9 @@
 import Person from "./Person";
 
-const Persons = ({ personsToShow }) => (
+const Persons = ({ personsToShow, deletePerson }) => (
   <>
     {personsToShow.map((person) => (
-      <Person person={person} key={person.name} />
+      <Person person={person} deletePerson={deletePerson} key={person.name} />
     ))}
   </>
 );
