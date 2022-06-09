@@ -1,6 +1,7 @@
 import axios from "axios";
 // const baseUrl = "http://localhost:3001/api/notes";
-const baseUrl = "https://limitless-reef-46323.herokuapp.com/api/notes";
+// const baseUrl = "https://limitless-reef-46323.herokuapp.com/api/notes";
+const baseUrl = "/api/notes";
 
 const getAll = () => {
   const request = axios.get(baseUrl);
