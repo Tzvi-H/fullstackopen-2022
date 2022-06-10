@@ -5,8 +5,8 @@ const morgan = require("morgan");
 const express = require("express");
 const app = express();
 
+app.use(express.static("build"));
 app.use(express.json());
-
 morgan.token("body", function (req, res) {
   return Object.keys(req.body).length === 0 ? "" : JSON.stringify(req.body);
 });
