@@ -51,9 +51,21 @@ app.get("/api/persons/:id", (req, res) => {
 });
 
 app.post("/api/persons", (req, res) => {
-  const person = { name: req.body.name, number: req.body.number };
-  console.log(person);
-  person.id = Math.floor(Math.random() * 1000);
+  if (!req.body.name) {
+    return res.status(400).json({ error: "missing name" });
+  } else if (!req.body.number) {
+    return res.status(400).json({ error: "missing number" });
+  } else if (persons.some((p) => p.name === req.body.name)) {
+    return res
+      .status(400)
+      .json({ error: `The name '${req.body.name}' already exists` });
+  }
+
+  const person = {
+    name: req.body.name,
+    number: req.body.number,
+    id: Math.floor(Math.random() * 1000),
+  };
   persons.push(person);
   res.json(person);
 });
