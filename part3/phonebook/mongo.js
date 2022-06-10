@@ -10,7 +10,7 @@ if (args.length === 0) {
 
 const name = args[1];
 const number = args[2];
-const url = `mongodb+srv://16guitar:${args[0]}@cluster0.1i94l.mongodb.net/phonbookApp?retryWrites=true&w=majority`;
+const url = `mongodb+srv://16guitar:${args[0]}@cluster0.1i94l.mongodb.net/phonebookApp?retryWrites=true&w=majority`;
 
 const personSchema = new mongoose.Schema({
   name: String,
