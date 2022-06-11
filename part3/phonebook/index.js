@@ -90,7 +90,11 @@ app.post("/api/persons", (req, res, next) => {
 app.put("/api/persons/:id", (req, res, next) => {
   const { name, number } = req.body;
 
-  Person.findByIdAndUpdate(req.params.id, { name, number }, { new: true })
+  Person.findByIdAndUpdate(
+    req.params.id,
+    { name, number },
+    { new: true, runValidators: true, context: "query" }
+  )
     .then((updatedPerson) => res.json(updatedPerson))
     .catch((error) => next(error));
 });
