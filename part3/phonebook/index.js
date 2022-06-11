@@ -72,13 +72,11 @@ app.post("/api/persons", (req, res) => {
       .json({ error: `The name '${req.body.name}' already exists` });
   }
 
-  const person = {
+  const person = new Person({
     name: req.body.name,
     number: req.body.number,
-    id: Math.floor(Math.random() * 1000),
-  };
-  persons.push(person);
-  res.json(person);
+  });
+  person.save().then((savedPerson) => res.json(savedPerson));
 });
 
 app.delete("/api/persons/:id", (req, res) => {
