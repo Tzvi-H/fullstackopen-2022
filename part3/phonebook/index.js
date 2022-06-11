@@ -39,26 +39,31 @@ let persons = [
   },
 ];
 
-app.get("/info", (req, res) => {
-  res.send(
-    `Phonebook has info for ${
-      persons.length
-    } people <br/><br/> ${new Date().toString()}`
-  );
+app.get("/info", (req, res, next) => {
+  Person.count()
+    .then((count) => {
+      res.send(
+        `Phonebook has info for ${count} people <br/><br/> ${new Date().toString()}`
+      );
+    })
+    .catch((error) => next(error));
 });
 
 app.get("/api/persons", (req, res) => {
-  Person.find({}).then((persons) => res.json(persons));
+  Person.find({})
+    .then((persons) => res.json(persons))
+    .catch((error) => next(error));
 });
 
-app.get("/api/persons/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const person = persons.find((p) => p.id === id);
-  if (person) {
-    res.json(person);
-  } else {
-    res.status(404).end();
-  }
+app.get("/api/persons/:id", (req, res, next) => {
+  Person.findById(req.params.id)
+    .then((person) => {
+      if (!person) {
+        return res.status(404).end();
+      }
+      res.json(person);
+    })
+    .catch((error) => next(error));
 });
 
 app.post("/api/persons", (req, res, next) => {
