@@ -38,6 +38,13 @@ const App = () => {
             setTimeout(() => setMessage(null), 3000);
             setNewName("");
             setNewNumber("");
+          })
+          .catch((error) => {
+            setMessage({
+              text: error.response.data.error,
+              type: "error",
+            });
+            setTimeout(() => setMessage(null), 3000);
           });
       }
     } else {
@@ -52,6 +59,13 @@ const App = () => {
           setTimeout(() => setMessage(null), 3000);
           setNewName("");
           setNewNumber("");
+        })
+        .catch((error) => {
+          setMessage({
+            text: error.response.data.error,
+            type: "error",
+          });
+          setTimeout(() => setMessage(null), 3000);
         });
     }
   };
