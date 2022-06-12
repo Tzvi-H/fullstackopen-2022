@@ -1,13 +1,10 @@
 GET http://localhost:3001/api/notes/
 
 ###
-POST http://localhost:3001/api/notes/ HTTP/1.1
+POST http://localhost:3001/api/notes
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyYTY3NDM3ZjY5NGFiYjMzMWJjNmNjMiIsImlhdCI6MTY1NTA3NzI5MX0.IuRhCmMGmBWJ8AIXGI3Y9Q2sWQToNmfHneRKYuOZob4
 content-type: application/json
 
 {
-    "name": "sample",
-    "time": "Wed, 21 Oct 2015 18:27:50 GMT",
-    "content": "foo bar"
-    # "userId": "62a67437f694abb331bc6cc2"
-
+    "content": "foo ba 2r"
 }
