@@ -100,6 +100,22 @@ const mostBlogs = (blogs) => {
   };
 };
 
+const mostLikes = (blogs) => {
+  const authorWithLikes = blogs.reduce((acc, blog) => {
+    acc[blog.author] = acc[blog.author] || 0;
+    acc[blog.author] += blog.likes;
+    return acc;
+  }, {});
+  const maxAuthor = maxBy(
+    Object.entries(authorWithLikes),
+    (author) => author[1]
+  );
+  return {
+    author: maxAuthor[0],
+    likes: maxAuthor[1],
+  };
+};
+
 module.exports = {
   dummy,
   totalLikes,
@@ -107,4 +123,5 @@ module.exports = {
   listWithOneBlog,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 };
