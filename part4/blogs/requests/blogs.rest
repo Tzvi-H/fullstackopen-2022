@@ -9,6 +9,5 @@ Content-Type: application/json
 {
   "title": 12,
   "author": "author",
-  "url": 123,
-  "likes": "123"
+  "url": 123
 }
