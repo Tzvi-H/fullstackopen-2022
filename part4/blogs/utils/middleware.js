@@ -12,7 +12,7 @@ const unknownEndpoint = (req, res) => {
   res.status(404).send({ error: "unknown endpoint" });
 };
 
-const errorHandler = (error, req, res, next) => {
+const errorHandler = (error, req, response, next) => {
   logger.error(error);
 
   if (error.name === "CastError") {

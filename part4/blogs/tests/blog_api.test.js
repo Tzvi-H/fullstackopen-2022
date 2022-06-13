@@ -69,6 +69,24 @@ describe("addition of a new blog", () => {
     const blog = blogsAtEnd.find((b) => b.title === newBlog.title);
     expect(blog.likes).toBe(0);
   });
+
+  test("without a title property with fail with a 400 status code", async () => {
+    const newBlog = {
+      author: "test author",
+      url: "https://testurl.com/",
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
+  });
+
+  test("without a url property with fail with a 400 status code", async () => {
+    const newBlog = {
+      author: "test author",
+      title: "test title",
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
+  });
 });
 
 afterAll(() => {
