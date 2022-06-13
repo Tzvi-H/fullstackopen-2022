@@ -59,8 +59,27 @@ const totalLikes = (blogs) => {
   return blogs.reduce((acc, curr) => curr.likes + acc, 0);
 };
 
+const favoriteBlog = (blogs) => {
+  const favoriteBlogs = blogs.sort((blogA, blogB) => {
+    if (blogA.likes > blogB.likes) {
+      return -1;
+    } else if (blogA.likes < blogB.likes) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  const favorite = favoriteBlogs[0];
+  return {
+    title: favorite.title,
+    author: favorite.author,
+    likes: favorite.likes,
+  };
+};
+
 module.exports = {
   dummy,
   totalLikes,
   blogs,
+  favoriteBlog,
 };
