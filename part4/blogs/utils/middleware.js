@@ -32,7 +32,7 @@ const errorHandler = (error, req, response, next) => {
   next(error);
 };
 
-const getTokenFrom = (request, respose, next) => {
+const tokenExtractor = (request, respose, next) => {
   const authorization = request.get("authorization");
   if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
     request.token = authorization.substring(7);
@@ -46,5 +46,5 @@ module.exports = {
   unknownEndpoint,
   errorHandler,
   requestLogger,
-  getTokenFrom,
+  tokenExtractor,
 };
