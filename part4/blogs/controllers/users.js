@@ -10,6 +10,17 @@ usersRouter.get("/", async (req, res) => {
 usersRouter.post("/", async (req, res) => {
   const { username, name, password } = req.body;
 
+  if (!password || password.length < 3) {
+    return res
+      .status(400)
+      .send({ error: "password must be at least 3 characters" });
+  }
+
+  const user = await User.findOne({ username });
+  if (user) {
+    return res.status(400).send({ error: "username must be unique" });
+  }
+
   const newUser = new User({
     name,
     username,
