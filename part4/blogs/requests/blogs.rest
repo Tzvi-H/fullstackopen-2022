@@ -10,3 +10,6 @@ Content-Type: application/json
   "author": "author",
   "url": 123
 }
+
+###
+DELETE  http://localhost:3001/api/blogs/62a67ea6d358cb43c405a6df
