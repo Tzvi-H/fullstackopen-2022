@@ -13,7 +13,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE  http://localhost:3001/api/blogs/62a67ea6d358cb43c405a6df
+DELETE  http://localhost:3001/api/blogs/62a8d30f199f8ecb7cd8f25e
 
 ###
 PUT http://localhost:3001/api/blogs/62a7b52b5add3643f1e2d7f1
