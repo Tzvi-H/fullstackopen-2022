@@ -8,8 +8,17 @@ Content-Type: application/json
 
 {
   "author": "author",
-  "url": 123
+  "url": 123,
+  "title": "title"
 }
 
 ###
 DELETE  http://localhost:3001/api/blogs/62a67ea6d358cb43c405a6df
+
+###
+PUT http://localhost:3001/api/blogs/62a7b52b5add3643f1e2d7f1
+Content-Type: application/json
+
+{
+  "likes": 100
+}
