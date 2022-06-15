@@ -9,8 +9,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZ
 
 {
   "author": "author",
-  "url": 123,
-  "title": "title"
+  "url": 123
 }
 
 ###
