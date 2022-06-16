@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.27.2",
+    "cypress": "^9.7.0",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -15,7 +16,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server": "json-server -p3001 --watch db.json"
+    "server": "json-server -p3001 --watch db.json",
+    "cypress:open": "cypress open",
+    "test:e2e": "cypress run"
   },
   "eslintConfig": {
     "extends": [
