@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from "react";
 import Blogs from "./components/Blogs";
 import CreateBlogForm from "./components/CreateBlogForm";
 import LoginForm from "./components/LoginForm";
+import Notification from "./components/Notification";
 import blogService from "./services/blogs";
 import loginService from "./services/login";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
+  const [notificationMessage, setNotificationMessage] = useState(null);
 
   const blogFormRef = useRef();
 
@@ -25,11 +27,23 @@ const App = () => {
   }, []);
 
   const handleLogin = (loginInfo) => {
-    loginService.login(loginInfo).then((user) => {
-      setUser(user);
-      blogService.setToken(user.token);
-      window.localStorage.setItem("loggedInBlogUser", JSON.stringify(user));
-    });
+    loginService
+      .login(loginInfo)
+      .then((user) => {
+        setUser(user);
+        blogService.setToken(user.token);
+        window.localStorage.setItem("loggedInBlogUser", JSON.stringify(user));
+        setNotificationMessage(`${user.name} logged in successfully`);
+        setTimeout(() => {
+          setNotificationMessage(null);
+        }, 4000);
+      })
+      .catch((error) => {
+        setNotificationMessage("wrong username or password");
+        setTimeout(() => {
+          setNotificationMessage(null);
+        }, 4000);
+      });
   };
 
   const handleLogout = () => {
@@ -42,15 +56,25 @@ const App = () => {
     blogService.create(blogInfo).then((newblog) => {
       setBlogs(blogs.concat(newblog));
       blogFormRef.current.resetForm();
+      setNotificationMessage(`${blogInfo.title} by ${blogInfo.author} added`);
+      setTimeout(() => {
+        setNotificationMessage(null);
+      }, 4000);
     });
   };
 
   if (user === null) {
-    return <LoginForm handleLogin={handleLogin} />;
+    return (
+      <div>
+        <Notification message={notificationMessage} type="error" />
+        <LoginForm handleLogin={handleLogin} />
+      </div>
+    );
   }
 
   return (
     <div>
+      <Notification message={notificationMessage} />
       <h2>blogs</h2>
       <p>
         {user.name} logged in<button onClick={handleLogout}>logout</button>
