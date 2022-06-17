@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Blogs from "./components/Blogs";
 import CreateBlogForm from "./components/CreateBlogForm";
+import Togglable from "./components/Togglable";
 import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
@@ -11,6 +12,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [notificationMessage, setNotificationMessage] = useState(null);
 
+  const togglableFormRef = useRef();
   const blogFormRef = useRef();
 
   useEffect(() => {
@@ -55,6 +57,7 @@ const App = () => {
   const handleCreateBlog = (blogInfo) => {
     blogService.create(blogInfo).then((newblog) => {
       setBlogs(blogs.concat(newblog));
+      togglableFormRef.current.toggleVisiblity();
       blogFormRef.current.resetForm();
       setNotificationMessage(`${blogInfo.title} by ${blogInfo.author} added`);
       setTimeout(() => {
@@ -79,7 +82,9 @@ const App = () => {
       <p>
         {user.name} logged in<button onClick={handleLogout}>logout</button>
       </p>
-      <CreateBlogForm handleCreateBlog={handleCreateBlog} ref={blogFormRef} />
+      <Togglable buttonLabel="new note" ref={togglableFormRef}>
+        <CreateBlogForm handleCreateBlog={handleCreateBlog} ref={blogFormRef} />
+      </Togglable>
       <Blogs blogs={blogs} />
     </div>
   );
