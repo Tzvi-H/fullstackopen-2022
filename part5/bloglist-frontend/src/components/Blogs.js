@@ -1,6 +1,6 @@
 import Blog from "./Blog";
 
-const Blogs = ({ blogs, handleUpdateBlog }) => {
+const Blogs = ({ blogs, handleUpdateBlog, handleDeleteBlog, user }) => {
   const blogsToShow = blogs.sort((b1, b2) => {
     if (b1.likes > b2.likes) {
       return -1;
@@ -14,7 +14,13 @@ const Blogs = ({ blogs, handleUpdateBlog }) => {
   return (
     <div>
       {blogsToShow.map((blog) => (
-        <Blog key={blog.id} blog={blog} handleUpdateBlog={handleUpdateBlog} />
+        <Blog
+          key={blog.id}
+          blog={blog}
+          handleUpdateBlog={handleUpdateBlog}
+          handleDeleteBlog={handleDeleteBlog}
+          user={user}
+        />
       ))}
     </div>
   );

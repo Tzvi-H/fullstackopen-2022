@@ -8,7 +8,7 @@ const blogStyle = {
   marginBottom: 5,
 };
 
-const Blog = ({ blog, handleUpdateBlog }) => {
+const Blog = ({ blog, user, handleUpdateBlog, handleDeleteBlog }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const { author, likes, title, url } = blog;
@@ -26,8 +26,19 @@ const Blog = ({ blog, handleUpdateBlog }) => {
     handleUpdateBlog(blog.id, updatedBlog);
   };
 
+  const handleDeleteClick = () => {
+    if (window.confirm(`Remove blog ${title} by ${author}`)) {
+      handleDeleteBlog(blog.id);
+    }
+  };
+
   return (
     <div style={blogStyle}>
+      {"---"}
+      {user.username}
+      {"---"}
+      {blog.user.username}
+      {"---"}
       {title} {author}{" "}
       <button onClick={() => setShowDetails(!showDetails)}>{buttonText}</button>
       {showDetails && (
@@ -38,6 +49,12 @@ const Blog = ({ blog, handleUpdateBlog }) => {
           <button onClick={handleLikeClick}>like</button>
           <br />
           {author}
+          {user.username === blog.user.username && (
+            <>
+              <br />
+              <button onClick={handleDeleteClick}>remove</button>
+            </>
+          )}
         </div>
       )}
     </div>

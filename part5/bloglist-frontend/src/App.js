@@ -71,7 +71,23 @@ const App = () => {
       const updatedBlog = await blogService.update(blogId, blogInfo);
       setBlogs(blogs.map((b) => (b.id !== blogId ? b : updatedBlog)));
     } catch (error) {
-      setNotificationMessage("invalid request, please try again later");
+      setNotificationMessage("something went wrong..");
+      setTimeout(() => {
+        setNotificationMessage(null);
+      }, 4000);
+    }
+  };
+
+  const handleDeleteBlog = async (blogId) => {
+    try {
+      await blogService.destroy(blogId);
+      setBlogs(blogs.filter((b) => b.id !== blogId));
+      setNotificationMessage("successfully removed");
+      setTimeout(() => {
+        setNotificationMessage(null);
+      }, 4000);
+    } catch (e) {
+      setNotificationMessage("something went wrong..");
       setTimeout(() => {
         setNotificationMessage(null);
       }, 4000);
@@ -97,7 +113,12 @@ const App = () => {
       <Togglable buttonLabel="new note" ref={togglableFormRef}>
         <CreateBlogForm handleCreateBlog={handleCreateBlog} ref={blogFormRef} />
       </Togglable>
-      <Blogs blogs={blogs} handleUpdateBlog={handleUpdateBlog} />
+      <Blogs
+        blogs={blogs}
+        handleUpdateBlog={handleUpdateBlog}
+        handleDeleteBlog={handleDeleteBlog}
+        user={user}
+      />
     </div>
   );
 };
