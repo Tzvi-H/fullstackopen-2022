@@ -66,6 +66,18 @@ const App = () => {
     });
   };
 
+  const handleUpdateBlog = async (blogId, blogInfo) => {
+    try {
+      const updatedBlog = await blogService.update(blogId, blogInfo);
+      setBlogs(blogs.map((b) => (b.id !== blogId ? b : updatedBlog)));
+    } catch (error) {
+      setNotificationMessage("invalid request, please try again later");
+      setTimeout(() => {
+        setNotificationMessage(null);
+      }, 4000);
+    }
+  };
+
   if (user === null) {
     return (
       <div>
@@ -85,7 +97,7 @@ const App = () => {
       <Togglable buttonLabel="new note" ref={togglableFormRef}>
         <CreateBlogForm handleCreateBlog={handleCreateBlog} ref={blogFormRef} />
       </Togglable>
-      <Blogs blogs={blogs} />
+      <Blogs blogs={blogs} handleUpdateBlog={handleUpdateBlog} />
     </div>
   );
 };

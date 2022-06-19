@@ -162,13 +162,13 @@ describe("deletion of a blog", () => {
 });
 
 describe("updating a blog", () => {
-  test("succeeds with status code 201", async () => {
+  test("succeeds with status code 200", async () => {
     const blogsAtStart = await helper.blogsInDb();
     const blogToUpdate = blogsAtStart[0];
     const result = await api
       .put(`/api/blogs/${blogToUpdate.id}`)
       .send({ likes: 100 })
-      .expect(204);
+      .expect(200);
     const blogsAtEnd = await helper.blogsInDb();
     const updatedBlog = blogsAtEnd.find((b) => b.id === blogToUpdate.id);
     expect(updatedBlog.likes).toBe(100);

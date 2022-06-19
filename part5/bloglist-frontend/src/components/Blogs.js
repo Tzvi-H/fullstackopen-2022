@@ -1,10 +1,10 @@
 import Blog from "./Blog";
 
-const Blogs = ({ blogs }) => {
+const Blogs = ({ blogs, handleUpdateBlog }) => {
   return (
     <div>
       {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} handleUpdateBlog={handleUpdateBlog} />
       ))}
     </div>
   );

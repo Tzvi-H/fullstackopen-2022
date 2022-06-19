@@ -8,12 +8,23 @@ const blogStyle = {
   marginBottom: 5,
 };
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleUpdateBlog }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const { author, likes, title, url } = blog;
 
   const buttonText = showDetails ? "hide" : "view";
+
+  const handleLikeClick = () => {
+    const updatedBlog = {
+      title,
+      url,
+      author,
+      likes: likes + 1,
+      user: blog.user.id,
+    };
+    handleUpdateBlog(blog.id, updatedBlog);
+  };
 
   return (
     <div style={blogStyle}>
@@ -24,6 +35,7 @@ const Blog = ({ blog }) => {
           {url}
           <br />
           likes {likes}
+          <button onClick={handleLikeClick}>like</button>
           <br />
           {author}
         </div>

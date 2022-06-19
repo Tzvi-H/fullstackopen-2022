@@ -60,7 +60,8 @@ blogsRouter.put("/:id", async (request, response) => {
     { likes: request.body.likes },
     { new: true }
   );
-  response.status(204).json(updatedBlog);
+  console.log(updatedBlog);
+  response.json(updatedBlog);
 });
 
 module.exports = blogsRouter;
