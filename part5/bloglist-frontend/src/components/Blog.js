@@ -38,14 +38,14 @@ const Blog = ({ blog, user, handleUpdateBlog, handleDeleteBlog }) => {
       {title} {author}{" "}
       <button onClick={() => setShowDetails(!showDetails)}>{buttonText}</button>
       {showDetails && (
-        <div>
+        <div className="blogDetails">
           {url}
           <br />
           likes {likes}
           <button onClick={handleLikeClick}>like</button>
           <br />
           {author}
-          {user.username === blog.user.username && (
+          {user && user.username === blog.user.username && (
             <>
               <br />
               <button onClick={handleDeleteClick}>remove</button>
