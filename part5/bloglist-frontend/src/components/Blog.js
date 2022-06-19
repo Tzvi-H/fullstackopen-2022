@@ -34,12 +34,7 @@ const Blog = ({ blog, user, handleUpdateBlog, handleDeleteBlog }) => {
   };
 
   return (
-    <div style={blogStyle}>
-      {"---"}
-      {user.username}
-      {"---"}
-      {blog.user.username}
-      {"---"}
+    <div style={blogStyle} className="blog">
       {title} {author}{" "}
       <button onClick={() => setShowDetails(!showDetails)}>{buttonText}</button>
       {showDetails && (
@@ -63,8 +58,7 @@ const Blog = ({ blog, user, handleUpdateBlog, handleDeleteBlog }) => {
 };
 
 Blog.propTypes = {
-  handleUpdateBlog: PropTypes.func.isRequired,
-  handleDeleteBlog: PropTypes.func.isRequired,
+  blog: PropTypes.object,
 };
 
 export default Blog;
