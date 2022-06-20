@@ -6,6 +6,7 @@ import Blog from "./Blog";
 
 describe("rendering a Blog", () => {
   let container;
+  let mockHandler;
 
   beforeEach(() => {
     const blog = {
@@ -13,9 +14,13 @@ describe("rendering a Blog", () => {
       author: "author 1",
       url: "url 1",
       likes: 1,
+      user: 191938383,
     };
 
-    container = render(<Blog blog={blog} />).container;
+    mockHandler = jest.fn();
+    container = render(
+      <Blog blog={blog} handleUpdateBlog={mockHandler} />
+    ).container;
   });
 
   test("renders it's title and author", () => {
@@ -28,10 +33,25 @@ describe("rendering a Blog", () => {
     expect(div).toBeNull();
   });
 
-  test("and clicking on the 'view' button will show the details", async () => {
-    const user = userEvent.setup();
-    const button = screen.getByText("view");
-    await user.click(button);
-    const div = container.querySelector(".blogDetails");
+  describe("and clicking the view button", () => {
+    let user;
+
+    beforeEach(async () => {
+      user = userEvent.setup();
+      const button = screen.getByText("view");
+      await user.click(button);
+    });
+
+    test("will show the details", async () => {
+      const div = container.querySelector(".blogDetails");
+      expect(div).toBeDefined();
+    });
+
+    test("will invoke the event handler twice when clicking the like button twice ", async () => {
+      const button = screen.getByText("like");
+      await user.click(button);
+      await user.click(button);
+      expect(mockHandler.mock.calls).toHaveLength(2);
+    });
   });
 });
