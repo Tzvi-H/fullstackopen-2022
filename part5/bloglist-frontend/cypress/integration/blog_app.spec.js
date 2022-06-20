@@ -49,13 +49,29 @@ describe("Blog app", function () {
     });
 
     it("A blog can be created", function () {
-      cy.contains("new note").click();
+      cy.contains("new blog").click();
       cy.get("#titleInput").type("cypress title");
       cy.get("#authorInput").type("cypress author");
       cy.get("#urlInput").type("cypress url");
       cy.get('input[type="submit"]').click();
       cy.contains("cypress title cypress author");
       cy.contains("cypress title by cypress author added");
+    });
+
+    describe("and a blog exists", function () {
+      beforeEach(function () {
+        cy.createBlog({
+          title: "cypress title",
+          author: "cypress author",
+          url: "cypress url",
+        });
+      });
+
+      it.only("a user can like a blog", function () {
+        cy.contains("cypress title cypress author").contains("view").click();
+        cy.contains("like").click();
+        cy.contains("likes 1");
+      });
     });
   });
 });
