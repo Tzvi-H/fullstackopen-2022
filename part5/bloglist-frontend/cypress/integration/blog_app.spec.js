@@ -67,10 +67,17 @@ describe("Blog app", function () {
         });
       });
 
-      it.only("a user can like a blog", function () {
+      it("a user can like a blog", function () {
         cy.contains("cypress title cypress author").contains("view").click();
         cy.contains("like").click();
         cy.contains("likes 1");
+      });
+
+      it.only("a user can delete a blog", function () {
+        cy.contains("cypress title cypress author").contains("view").click();
+        cy.get("html").should("contain", "cypress title cypress author");
+        cy.contains("remove").click();
+        cy.get("html").should("not.contain", "cypress title cypress author");
       });
     });
   });
