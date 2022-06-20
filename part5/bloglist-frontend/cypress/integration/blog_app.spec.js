@@ -73,11 +73,57 @@ describe("Blog app", function () {
         cy.contains("likes 1");
       });
 
-      it.only("a user can delete a blog", function () {
+      it("a user can delete a blog", function () {
         cy.contains("cypress title cypress author").contains("view").click();
         cy.get("html").should("contain", "cypress title cypress author");
         cy.contains("remove").click();
         cy.get("html").should("not.contain", "cypress title cypress author");
+      });
+    });
+
+    describe("and multiple blogs exist", function () {
+      beforeEach(function () {
+        cy.createBlog({
+          title: "cypress title 1",
+          author: "cypress author 1",
+          url: "cypress url 1",
+          likes: 1,
+        });
+
+        cy.createBlog({
+          title: "cypress title 2",
+          author: "cypress author 2",
+          url: "cypress url 2",
+          likes: 2,
+        });
+
+        cy.createBlog({
+          title: "cypress title 3",
+          author: "cypress author 3",
+          url: "cypress url 3",
+          likes: 3,
+        });
+      });
+
+      it("blogs will be ordered by likes in descending order", function () {
+        cy.get(".blog").eq(0).should("contain", "cypress title 3");
+        cy.get(".blog").eq(1).should("contain", "cypress title 2");
+        cy.get(".blog").eq(2).should("contain", "cypress title 1");
+
+        cy.contains("cypress title 2").as("title2").contains("view").click();
+        cy.get("@title2").contains("like").click();
+        cy.get("@title2").contains("likes 3").contains("like").click();
+
+        cy.contains("cypress title 1").as("title1").contains("view").click();
+        cy.get("@title1").contains("like").click();
+        cy.get("@title1").contains("likes 2").contains("like").click();
+        cy.get("@title1").contains("likes 3").contains("like").click();
+        cy.get("@title1").contains("likes 4").contains("like").click();
+        cy.get("@title1").contains("likes 5");
+
+        cy.get(".blog").eq(0).should("contain", "cypress title 1");
+        cy.get(".blog").eq(1).should("contain", "cypress title 2");
+        cy.get(".blog").eq(2).should("contain", "cypress title 3");
       });
     });
   });
