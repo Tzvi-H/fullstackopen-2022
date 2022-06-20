@@ -39,4 +39,23 @@ describe("Blog app", function () {
       );
     });
   });
+
+  describe("When logged in", function () {
+    beforeEach(function () {
+      cy.login({
+        username: "username",
+        password: "password",
+      });
+    });
+
+    it("A blog can be created", function () {
+      cy.contains("new note").click();
+      cy.get("#titleInput").type("cypress title");
+      cy.get("#authorInput").type("cypress author");
+      cy.get("#urlInput").type("cypress url");
+      cy.get('input[type="submit"]').click();
+      cy.contains("cypress title cypress author");
+      cy.contains("cypress title by cypress author added");
+    });
+  });
 });
