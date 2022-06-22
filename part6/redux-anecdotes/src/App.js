@@ -8,6 +8,12 @@ const App = () => {
     dispatch({ data: id, type: "VOTE" });
   };
 
+  const createAnecdote = (e) => {
+    e.preventDefault();
+    dispatch({ type: "CREATE", data: e.target.content.value });
+    e.target.content.value = "";
+  };
+
   return (
     <div>
       <h2>Anecdotes</h2>
@@ -21,9 +27,9 @@ const App = () => {
         </div>
       ))}
       <h2>create new</h2>
-      <form>
+      <form onSubmit={createAnecdote}>
         <div>
-          <input />
+          <input name="content" />
         </div>
         <button>create</button>
       </form>
