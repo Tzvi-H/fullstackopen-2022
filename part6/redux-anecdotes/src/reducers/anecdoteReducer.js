@@ -13,10 +13,10 @@ const reducer = (state = [], action) => {
   }
 };
 
-export const createAnecdote = (content) => {
+export const addAnecdote = (anecdote) => {
   return {
     type: "CREATE",
-    data: content,
+    data: anecdote,
   };
 };
 

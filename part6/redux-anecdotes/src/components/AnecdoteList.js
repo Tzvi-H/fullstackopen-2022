@@ -24,9 +24,9 @@ const filterWordsByWord = (words, word) => {
 };
 
 const AnecdoteList = () => {
-  const anecdotes = useSelector((state) =>
-    sortByVotes(filterWordsByWord(state.anecdotes, state.filter))
-  );
+  const anecdotes = useSelector((state) => {
+    return sortByVotes(filterWordsByWord(state.anecdotes, state.filter));
+  });
   const dispatch = useDispatch();
 
   const vote = (id) => {
