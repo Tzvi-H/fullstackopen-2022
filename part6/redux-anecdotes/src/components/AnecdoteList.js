@@ -17,8 +17,16 @@ const sortByVotes = (anecdotes) => {
   });
 };
 
+const filterWordsByWord = (words, word) => {
+  return words.filter(({ content }) =>
+    content.toLowerCase().includes(word.toLowerCase())
+  );
+};
+
 const AnecdoteList = () => {
-  const anecdotes = useSelector((state) => sortByVotes(state.anecdotes));
+  const anecdotes = useSelector((state) =>
+    sortByVotes(filterWordsByWord(state.anecdotes, state.filter))
+  );
   const dispatch = useDispatch();
 
   const vote = (id) => {
