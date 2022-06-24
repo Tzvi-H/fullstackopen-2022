@@ -1,6 +1,14 @@
 import { useState } from "react";
 import { Routes, Route, Link, useNavigate, useMatch } from "react-router-dom";
 
+const Notification = ({ message }) => {
+  if (message === null) {
+    return <></>;
+  }
+
+  return <div>{message}</div>;
+};
+
 const Menu = () => {
   const padding = {
     paddingRight: 5,
@@ -149,12 +157,16 @@ const App = () => {
     ? anecdotes.find((a) => a.id === Number(match.params.id))
     : null;
 
-  // const [notification, setNotification] = useState('')
+  const [notification, setNotification] = useState(null);
 
   const addNew = (anecdote) => {
     anecdote.id = Math.round(Math.random() * 10000);
     setAnecdotes(anecdotes.concat(anecdote));
     navigate("/");
+    setNotification(`a new anecdote ${anecdote.content} created!`);
+    setTimeout(() => {
+      setNotification(null);
+    }, 3000);
   };
 
   // const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
@@ -174,6 +186,7 @@ const App = () => {
     <div>
       <h1>Software anecdotes</h1>
       <Menu />
+      <Notification message={notification} />
       <Routes>
         <Route
           path="/anecdotes/:id"
