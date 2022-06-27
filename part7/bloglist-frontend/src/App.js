@@ -11,7 +11,12 @@ import {
   setNotification,
   removeNotification,
 } from "./reducers/notificationReducer";
-import { setBlogs, addBlog } from "./reducers/blogReducer";
+import {
+  setBlogs,
+  addBlog,
+  updateBlog,
+  removeBlog,
+} from "./reducers/blogReducer";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -86,7 +91,7 @@ const App = () => {
   const handleUpdateBlog = async (blogId, blogInfo) => {
     try {
       const updatedBlog = await blogService.update(blogId, blogInfo);
-      // setBlogs(blogs.map((b) => (b.id !== blogId ? b : updatedBlog)));
+      dispatch(updateBlog(updatedBlog));
       dispatch(setNotification({ message: `"${blogInfo.title}" liked` }));
       setTimeout(() => {
         dispatch(removeNotification());
@@ -104,7 +109,7 @@ const App = () => {
   const handleDeleteBlog = async (blogId) => {
     try {
       await blogService.destroy(blogId);
-      // setBlogs(blogs.filter((b) => b.id !== blogId));
+      dispatch(removeBlog(blogId));
       dispatch(setNotification({ message: "successfully removed" }));
       setTimeout(() => {
         dispatch(removeNotification());
