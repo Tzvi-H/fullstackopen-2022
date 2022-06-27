@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import Blogs from "./components/Blogs";
 import Users from "./components/Users";
+import User from "./components/User";
 import CreateBlogForm from "./components/CreateBlogForm";
 import Togglable from "./components/Togglable";
 import LoginForm from "./components/LoginForm";
@@ -65,6 +66,7 @@ const App = () => {
       </Togglable>
       <Blogs />
       <Routes>
+        <Route path="/users/:id" element={<User />} />
         <Route path="users" element={<Users />} />
       </Routes>
     </div>
