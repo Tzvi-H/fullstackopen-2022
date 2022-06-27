@@ -11,9 +11,9 @@ import {
   setNotification,
   removeNotification,
 } from "./reducers/notificationReducer";
+import { setBlogs, addBlog } from "./reducers/blogReducer";
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
   const [user, setUser] = useState(null);
 
   const dispatch = useDispatch();
@@ -22,8 +22,8 @@ const App = () => {
   const blogFormRef = useRef();
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
-  }, []);
+    blogService.getAll().then((blogs) => dispatch(setBlogs(blogs)));
+  }, [dispatch]);
 
   useEffect(() => {
     const userJson = window.localStorage.getItem("loggedInBlogUser");
@@ -69,7 +69,7 @@ const App = () => {
 
   const handleCreateBlog = (blogInfo) => {
     blogService.create(blogInfo).then((newblog) => {
-      setBlogs(blogs.concat(newblog));
+      dispatch(addBlog(newblog));
       togglableFormRef.current.toggleVisiblity();
       blogFormRef.current.resetForm();
       dispatch(
@@ -86,7 +86,7 @@ const App = () => {
   const handleUpdateBlog = async (blogId, blogInfo) => {
     try {
       const updatedBlog = await blogService.update(blogId, blogInfo);
-      setBlogs(blogs.map((b) => (b.id !== blogId ? b : updatedBlog)));
+      // setBlogs(blogs.map((b) => (b.id !== blogId ? b : updatedBlog)));
       dispatch(setNotification({ message: `"${blogInfo.title}" liked` }));
       setTimeout(() => {
         dispatch(removeNotification());
@@ -104,7 +104,7 @@ const App = () => {
   const handleDeleteBlog = async (blogId) => {
     try {
       await blogService.destroy(blogId);
-      setBlogs(blogs.filter((b) => b.id !== blogId));
+      // setBlogs(blogs.filter((b) => b.id !== blogId));
       dispatch(setNotification({ message: "successfully removed" }));
       setTimeout(() => {
         dispatch(removeNotification());
@@ -137,7 +137,6 @@ const App = () => {
         <CreateBlogForm handleCreateBlog={handleCreateBlog} ref={blogFormRef} />
       </Togglable>
       <Blogs
-        blogs={blogs}
         handleUpdateBlog={handleUpdateBlog}
         handleDeleteBlog={handleDeleteBlog}
         user={user}
