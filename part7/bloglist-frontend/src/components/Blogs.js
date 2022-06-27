@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import Blog from "./Blog";
 
-const Blogs = ({ handleUpdateBlog, handleDeleteBlog, user }) => {
+const Blogs = ({ handleUpdateBlog, handleDeleteBlog }) => {
   const blogs = useSelector((state) =>
     state.blogs.sort((b1, b2) => {
       if (b1.likes > b2.likes) {
@@ -13,6 +13,7 @@ const Blogs = ({ handleUpdateBlog, handleDeleteBlog, user }) => {
       }
     })
   );
+  const user = useSelector((state) => state.user);
 
   return (
     <div>
