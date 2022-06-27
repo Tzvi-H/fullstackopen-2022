@@ -1,13 +1,33 @@
 import { useState, forwardRef, useImperativeHandle } from "react";
+import { useDispatch } from "react-redux";
+import {
+  setNotification,
+  removeNotification,
+} from "../reducers/notificationReducer";
+import { addBlog } from "../reducers/blogReducer";
+import blogService from "../services/blogs";
 
-const CreateBlogForm = forwardRef(({ handleCreateBlog }, refs) => {
+const CreateBlogForm = forwardRef((props, refs) => {
+  const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleCreateBlog({ title, author, url });
+    blogService.create({ title, author, url }).then((newblog) => {
+      dispatch(addBlog(newblog));
+      props.togglableFormRef.current.toggleVisiblity();
+      resetForm();
+      dispatch(
+        setNotification({
+          message: `${title} by ${author} added`,
+        })
+      );
+      setTimeout(() => {
+        dispatch(removeNotification());
+      }, 4000);
+    });
   };
 
   const resetForm = () => {
