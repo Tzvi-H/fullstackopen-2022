@@ -1,11 +1,14 @@
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 import Blogs from "./components/Blogs";
+import Users from "./components/Users";
 import CreateBlogForm from "./components/CreateBlogForm";
 import Togglable from "./components/Togglable";
 import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
 import blogService from "./services/blogs";
+import usersService from "./services/users";
 import loginService from "./services/login";
 import {
   setNotification,
@@ -18,6 +21,7 @@ import {
   removeBlog,
 } from "./reducers/blogReducer";
 import { setUser, removeUser } from "./reducers/userReducer";
+import { setUsers } from "./reducers/usersReducer";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -29,6 +33,10 @@ const App = () => {
 
   useEffect(() => {
     blogService.getAll().then((blogs) => dispatch(setBlogs(blogs)));
+  }, [dispatch]);
+
+  useEffect(() => {
+    usersService.getAll().then((users) => dispatch(setUsers(users)));
   }, [dispatch]);
 
   useEffect(() => {
@@ -146,6 +154,9 @@ const App = () => {
         handleUpdateBlog={handleUpdateBlog}
         handleDeleteBlog={handleDeleteBlog}
       />
+      <Routes>
+        <Route path="users" element={<Users />} />
+      </Routes>
     </div>
   );
 };
