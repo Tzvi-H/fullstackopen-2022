@@ -41,6 +41,20 @@ const Blog = () => {
     }
   };
 
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+
+    const comment = e.target.comment.value;
+    const updatedBlog = await blogService.createComment(blogId, comment);
+    dispatch(updateBlog(updatedBlog));
+    dispatch(setNotification({ message: "successfully added comment" }));
+    setTimeout(() => {
+      dispatch(removeNotification());
+    }, 4000);
+
+    e.target.comment.value = "";
+  };
+
   return (
     <div>
       <h1>{blog.title}</h1>
@@ -53,6 +67,10 @@ const Blog = () => {
       </div>
       <div>
         <h3>comments</h3>
+        <form onSubmit={handleSubmitComment}>
+          <input name="comment" />
+          <input type="submit" value="add comment" />
+        </form>
         <ul>
           {blog.comments.map((comment) => (
             <li key={comment}>{comment}</li>
