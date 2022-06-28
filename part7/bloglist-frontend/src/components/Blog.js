@@ -51,6 +51,14 @@ const Blog = () => {
         <br />
         added by {blog.author}
       </div>
+      <div>
+        <h3>comments</h3>
+        <ul>
+          {blog.comments.map((comment) => (
+            <li key={comment}>{comment}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

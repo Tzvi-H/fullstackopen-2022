@@ -33,6 +33,15 @@ blogsRouter.post("/", tokenExtractor, userExtractor, async (req, res) => {
   res.status(201).json(savedBlog);
 });
 
+blogsRouter.post("/:id/comments", async (req, res) => {
+  const updatedBlog = await Blog.findByIdAndUpdate(
+    req.params.id,
+    { $push: { comments: req.body.comment } },
+    { new: true }
+  ).populate("user", { username: 1, name: 1 });
+  res.json(updatedBlog);
+});
+
 blogsRouter.delete(
   "/:id",
   tokenExtractor,

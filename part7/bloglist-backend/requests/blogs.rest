@@ -1,9 +1,17 @@
 ###
-GET http://localhost:3001/api/blogs
+GET http://localhost:3003/api/blogs
+
+###
+POST http://localhost:3003/api/blogs/62b9dbeadf7572b992ad424a/comments
+Content-Type: application/json
+
+{
+  "comment": "comment 2"
+}
 
 
 ###
-POST http://localhost:3001/api/blogs
+POST http://localhost:3003/api/blogs
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWQiOiI2MmE4ZDMwNjE5OWY4ZWNiN2NkOGYyNWMiLCJpYXQiOjE2NTUzMjc4NjYsImV4cCI6MTY1NTMzMTQ2Nn0.vrM_A9_hGawUmrvZwzwnK6DMCu2ipU_tZ_BdjC7hNpc
 
@@ -13,11 +21,11 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZ
 }
 
 ###
-DELETE  http://localhost:3001/api/blogs/62aa4db83769eb9d31dc425d
+DELETE  http://localhost:3003/api/blogs/62aa4db83769eb9d31dc425d
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWQiOiI2MmE4ZDMwNjE5OWY4ZWNiN2NkOGYyNWMiLCJpYXQiOjE2NTUzMjc4NjYsImV4cCI6MTY1NTMzMTQ2Nn0.vrM_A9_hGawUmrvZwzwnK6DMCu2ipU_tZ_BdjC7hNpc
 
 ###
-PUT http://localhost:3001/api/blogs/62a7b52b5add3643f1e2d7f1
+PUT http://localhost:3003/api/blogs/62a7b52b5add3643f1e2d7f1
 Content-Type: application/json
 
 {
