@@ -1,25 +1,24 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import Blogs from "./components/Blogs";
+
 import Blog from "./components/Blog";
 import Users from "./components/Users";
 import User from "./components/User";
-import CreateBlogForm from "./components/CreateBlogForm";
-import Togglable from "./components/Togglable";
 import LoginForm from "./components/LoginForm";
+import Home from "./components/Home";
 import Notification from "./components/Notification";
+import Navigation from "./components/Navigation";
+
 import blogService from "./services/blogs";
 import usersService from "./services/users";
+
 import { setBlogs } from "./reducers/blogReducer";
-import { setUser, removeUser } from "./reducers/userReducer";
+import { setUser } from "./reducers/userReducer";
 import { setUsers } from "./reducers/usersReducer";
 
 const App = () => {
   const dispatch = useDispatch();
-
-  const togglableFormRef = useRef();
-  const blogFormRef = useRef();
 
   const user = useSelector((state) => state.user);
 
@@ -40,12 +39,6 @@ const App = () => {
     }
   }, [dispatch]);
 
-  const handleLogout = () => {
-    dispatch(removeUser());
-    blogService.setToken(null);
-    window.localStorage.removeItem("loggedInBlogUser");
-  };
-
   if (user === null) {
     return (
       <div>
@@ -58,18 +51,18 @@ const App = () => {
   return (
     <div>
       <Notification />
-      <h2>blogs</h2>
-      <p>
-        {user.username} logged in<button onClick={handleLogout}>logout</button>
-      </p>
-      <Togglable buttonLabel="new blog" ref={togglableFormRef}>
-        <CreateBlogForm ref={blogFormRef} togglableFormRef={togglableFormRef} />
-      </Togglable>
-      <Blogs />
+      <Navigation />
+
+      <h2>blog app</h2>
+
       <Routes>
         <Route path="/users/:id" element={<User />} />
         <Route path="users" element={<Users />} />
+
+        <Route path="blogs" element={<Home />} />
         <Route path="blogs/:id" element={<Blog />} />
+
+        <Route path="/" element={<Home />} />
       </Routes>
     </div>
   );
