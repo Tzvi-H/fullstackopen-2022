@@ -6,6 +6,7 @@ import {
 } from "../reducers/notificationReducer";
 import { addBlog } from "../reducers/blogReducer";
 import blogService from "../services/blogs";
+import { Button, TextField } from "@mui/material";
 
 const CreateBlogForm = forwardRef((props, refs) => {
   const dispatch = useDispatch();
@@ -47,30 +48,32 @@ const CreateBlogForm = forwardRef((props, refs) => {
       <h2>create new</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          title:
-          <input
+          <TextField
+            label="title"
             id="titleInput"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
           />
         </div>
         <div>
-          author:
-          <input
+          <TextField
+            label="author"
             id="authorInput"
             value={author}
             onChange={({ target }) => setAuthor(target.value)}
           />
         </div>
         <div>
-          url:
-          <input
+          <TextField
+            label="url"
             id="urlInput"
             value={url}
             onChange={({ target }) => setUrl(target.value)}
           />
         </div>
-        <input type="submit" value="create" />
+        <Button type="submit" variant="contained" color="primary">
+          create
+        </Button>
       </form>
     </div>
   );

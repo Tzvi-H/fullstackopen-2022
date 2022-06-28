@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../reducers/userReducer";
 import blogService from "../services/blogs";
+import { AppBar, Toolbar, Button } from "@mui/material";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -15,10 +16,20 @@ const Navigation = () => {
   };
 
   return (
-    <div>
-      <Link to="/">blogs</Link> <Link to="/users">users</Link> {user.username}{" "}
-      logged in <button onClick={handleLogout}>logout</button>
-    </div>
+    <AppBar position="static">
+      <Toolbar>
+        <Button color="inherit" component={Link} to="/blogs">
+          blogs
+        </Button>
+        <Button color="inherit" component={Link} to="/users">
+          users
+        </Button>
+        <Button color="inherit" onClick={handleLogout}>
+          logout
+        </Button>
+        {user.username} logged in
+      </Toolbar>
+    </AppBar>
   );
 };
 

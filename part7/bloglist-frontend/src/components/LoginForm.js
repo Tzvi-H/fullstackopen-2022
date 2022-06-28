@@ -7,6 +7,7 @@ import {
   setNotification,
   removeNotification,
 } from "../reducers/notificationReducer";
+import { TextField, Button } from "@mui/material";
 
 const LoginForm = (props) => {
   const [username, setUsername] = useState("");
@@ -49,23 +50,30 @@ const LoginForm = (props) => {
       <h2>Log in to application</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          username
-          <input
+          <TextField
+            label="username"
             id="username"
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
         </div>
         <div>
-          password
-          <input
+          <TextField
+            label="password"
             id="password"
             value={password}
             type="password"
             onChange={({ target }) => setPassword(target.value)}
           />
         </div>
-        <input type="submit" value="log in" id="login-button" />
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          id="login-button"
+        >
+          log in
+        </Button>
       </form>
     </div>
   );

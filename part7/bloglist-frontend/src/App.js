@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
+import Container from "@mui/material/Container";
+
 import Blog from "./components/Blog";
 import Users from "./components/Users";
 import User from "./components/User";
@@ -41,15 +43,15 @@ const App = () => {
 
   if (user === null) {
     return (
-      <div>
+      <Container>
         <Notification />
         <LoginForm />
-      </div>
+      </Container>
     );
   }
 
   return (
-    <div>
+    <Container>
       <Notification />
       <Navigation />
 
@@ -64,7 +66,7 @@ const App = () => {
 
         <Route path="/" element={<Home />} />
       </Routes>
-    </div>
+    </Container>
   );
 };
 
