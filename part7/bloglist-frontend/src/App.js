@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import Blogs from "./components/Blogs";
+import Blog from "./components/Blog";
 import Users from "./components/Users";
 import User from "./components/User";
 import CreateBlogForm from "./components/CreateBlogForm";
@@ -59,7 +60,7 @@ const App = () => {
       <Notification />
       <h2>blogs</h2>
       <p>
-        {user.name} logged in<button onClick={handleLogout}>logout</button>
+        {user.username} logged in<button onClick={handleLogout}>logout</button>
       </p>
       <Togglable buttonLabel="new blog" ref={togglableFormRef}>
         <CreateBlogForm ref={blogFormRef} togglableFormRef={togglableFormRef} />
@@ -68,6 +69,7 @@ const App = () => {
       <Routes>
         <Route path="/users/:id" element={<User />} />
         <Route path="users" element={<Users />} />
+        <Route path="blogs/:id" element={<Blog />} />
       </Routes>
     </div>
   );
