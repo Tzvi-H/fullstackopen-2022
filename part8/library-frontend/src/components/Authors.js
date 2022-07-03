@@ -1,7 +1,26 @@
+import { useMutation } from "@apollo/client";
+import { EDIT_AUTHOR, ALL_AUTHORS, ALL_BOOKS } from "../queries";
+
 const Authors = (props) => {
+  const [editAuthor] = useMutation(EDIT_AUTHOR, {
+    refetchQueries: [{ query: ALL_AUTHORS }, { query: ALL_BOOKS }],
+  });
+
   if (!props.show) {
     return null;
   }
+
+  const submit = (e) => {
+    e.preventDefault();
+    editAuthor({
+      variables: {
+        name: e.target.name.value,
+        setBornTo: Number(e.target.born.value),
+      },
+    });
+    e.target.name.value = "";
+    e.target.born.value = "";
+  };
 
   return (
     <div>
@@ -22,6 +41,21 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
+
+      <div>
+        <h3>Set birthyear</h3>
+        <form onSubmit={submit}>
+          <div>
+            name
+            <input name="name" />
+          </div>
+          <div>
+            born
+            <input name="born" type="number" />
+          </div>
+          <input type="submit" value="update author" />
+        </form>
+      </div>
     </div>
   );
 };
