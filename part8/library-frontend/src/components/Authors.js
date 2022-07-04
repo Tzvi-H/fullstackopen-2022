@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/client";
 import { EDIT_AUTHOR, ALL_AUTHORS, ALL_BOOKS } from "../queries";
+import Select from "react-select";
 
 const Authors = (props) => {
   const [editAuthor] = useMutation(EDIT_AUTHOR, {
@@ -12,6 +13,7 @@ const Authors = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
+
     editAuthor({
       variables: {
         name: e.target.name.value,
@@ -46,8 +48,13 @@ const Authors = (props) => {
         <h3>Set birthyear</h3>
         <form onSubmit={submit}>
           <div>
-            name
-            <input name="name" />
+            <Select
+              name="name"
+              options={props.authors.map((a) => ({
+                value: a.name,
+                label: a.name,
+              }))}
+            />
           </div>
           <div>
             born
