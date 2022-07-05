@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BooksTable from "./BooksTable";
 
 const Books = (props) => {
   const [genre, setGenre] = useState(null);
@@ -24,22 +25,8 @@ const Books = (props) => {
         </div>
       )}
 
-      <table>
-        <tbody>
-          <tr>
-            <th></th>
-            <th>author</th>
-            <th>published</th>
-          </tr>
-          {booksToShow.map((a) => (
-            <tr key={a.title}>
-              <td>{a.title}</td>
-              <td>{a.author.name}</td>
-              <td>{a.published}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <BooksTable books={booksToShow} />
+
       {genres.map((g) => (
         <button key={g} onClick={() => setGenre(g)}>
           {g}
