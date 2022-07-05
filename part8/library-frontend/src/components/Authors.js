@@ -44,25 +44,27 @@ const Authors = (props) => {
         </tbody>
       </table>
 
-      <div>
-        <h3>Set birthyear</h3>
-        <form onSubmit={submit}>
-          <div>
-            <Select
-              name="name"
-              options={props.authors.map((a) => ({
-                value: a.name,
-                label: a.name,
-              }))}
-            />
-          </div>
-          <div>
-            born
-            <input name="born" type="number" />
-          </div>
-          <input type="submit" value="update author" />
-        </form>
-      </div>
+      {props.userLoggedIn && (
+        <div>
+          <h3>Set birthyear</h3>
+          <form onSubmit={submit}>
+            <div>
+              <Select
+                name="name"
+                options={props.authors.map((a) => ({
+                  value: a.name,
+                  label: a.name,
+                }))}
+              />
+            </div>
+            <div>
+              born
+              <input name="born" type="number" />
+            </div>
+            <input type="submit" value="update author" />
+          </form>
+        </div>
+      )}
     </div>
   );
 };
