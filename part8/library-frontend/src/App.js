@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useQuery, useApolloClient } from "@apollo/client";
+import { useQuery, useSubscription, useApolloClient } from "@apollo/client";
 
 import Authors from "./components/Authors";
 import Books from "./components/Books";
@@ -7,7 +7,7 @@ import NewBook from "./components/NewBook";
 import Login from "./components/Login";
 import Recommend from "./components/Recommend";
 
-import { ALL_AUTHORS, ALL_BOOKS, ME } from "./queries";
+import { ALL_AUTHORS, ALL_BOOKS, ME, BOOK_ADDED } from "./queries";
 
 const App = () => {
   const client = useApolloClient();
@@ -23,6 +23,12 @@ const App = () => {
       setToken(token);
     }
   }, []);
+
+  useSubscription(BOOK_ADDED, {
+    onSubscriptionData: ({ subscriptionData }) => {
+      alert(`Successfully added ${subscriptionData.data.bookAdded.title}`);
+    },
+  });
 
   if (authorsResult.loading || booksResult.loading) {
     return <div>Loading...</div>;
