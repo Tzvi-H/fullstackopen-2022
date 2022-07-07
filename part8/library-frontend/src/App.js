@@ -9,6 +9,22 @@ import Recommend from "./components/Recommend";
 
 import { ALL_AUTHORS, ALL_BOOKS, ME, BOOK_ADDED } from "./queries";
 
+// function that takes care of manipulating cache
+export const updateCache = (cache, query, addedBook) => {
+  const uniqByName = (a) => {
+    let seen = new Set();
+    return a.filter((item) => {
+      let k = item.name;
+      return seen.has(k) ? false : seen.add(k);
+    });
+  };
+  cache.updateQuery(query, ({ allBooks }) => {
+    return {
+      allBooks: uniqByName(allBooks.concat(addedBook)),
+    };
+  });
+};
+
 const App = () => {
   const client = useApolloClient();
   const [token, setToken] = useState(null);
@@ -26,7 +42,13 @@ const App = () => {
 
   useSubscription(BOOK_ADDED, {
     onSubscriptionData: ({ subscriptionData }) => {
-      alert(`Successfully added ${subscriptionData.data.bookAdded.title}`);
+      const addedBook = subscriptionData.data.bookAdded;
+      alert(`Successfully added ${addedBook.title}`);
+      client.cache.updateQuery({ query: ALL_BOOKS }, ({ allBooks }) => {
+        return {
+          allBooks: allBooks.concat(addedBook),
+        };
+      });
     },
   });
 
