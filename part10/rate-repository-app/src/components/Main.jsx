@@ -19,3 +19,10 @@ const Main = () => {
 };
 
 export default Main;
+
+/*
+Alert 
+Text 
+Pressable onPress
+View 
+*/
