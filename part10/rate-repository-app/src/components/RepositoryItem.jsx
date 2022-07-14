@@ -1,4 +1,3 @@
-// import { View, Image, StyleSheet, Button } from "react-native";
 import { View, Image, StyleSheet } from "react-native";
 import Text from "./Text";
 import theme from "../theme";
