@@ -17,12 +17,12 @@ const AppBar = () => {
     <View style={styles.container}>
       <ScrollView horizontal>
         <Link to="/" style={{ marginRight: 8 }}>
-          <Text color="textSecondary" fontSize="subheading">
+          <Text color="white" fontSize="subheading">
             Repositories
           </Text>
         </Link>
         <Link to="/sign-in">
-          <Text color="textSecondary" fontSize="subheading">
+          <Text color="white" fontSize="subheading">
             Sign in
           </Text>
         </Link>
