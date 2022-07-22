@@ -6,3 +6,14 @@ Content-Type: application/json
   "text": "sent from vscode",
   "done": false
 }
+
+###
+GET http://localhost:3000/todos
+
+###
+PUT http://localhost:3000/todos/62db2335fe68021ed8d4aa3c
+Content-Type: application/json
+
+{
+    "text": "12.7"
+}
