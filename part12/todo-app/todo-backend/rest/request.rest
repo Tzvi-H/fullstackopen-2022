@@ -17,3 +17,6 @@ Content-Type: application/json
 {
     "text": "12.7"
 }
+
+###
+DELETE http://localhost:3000/todos/62df136bc95e01735d280610
