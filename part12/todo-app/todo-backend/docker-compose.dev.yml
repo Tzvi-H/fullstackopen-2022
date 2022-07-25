@@ -14,5 +14,8 @@ services:
       - ./mongo_data:/data/db
   redis:
     image: redis
+    command: ["redis-server", "--appendonly", "yes"] # Overwrite the CMD
     ports:
       - 6379:6379
+    volumes: # Declare the volume
+      - ./redis_data:/data
