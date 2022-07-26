@@ -1,5 +1,0 @@
-.dockerignore
-.gitignore
-node_modules
-Dockerfile
-rest
