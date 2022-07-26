@@ -6,7 +6,7 @@ RUN npm install && CI=true npm run test
 
 FROM test-stage as build-stage
 COPY . .
-ENV REACT_APP_BACKEND_URL=http://localhost:3000/
+ENV REACT_APP_BACKEND_URL=http://localhost:3001/
 RUN npm run build
 
 FROM nginx:1.20-alpine
