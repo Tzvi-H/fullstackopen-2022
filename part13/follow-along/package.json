@@ -1,0 +1,22 @@
+{
+  "name": "follow-along",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "pg:connect": "heroku run psql -h ec2-54-158-247-210.compute-1.amazonaws.com -p 5432 -U jtppnaojfxefeu d77sh645efdkjn -a infinite-brook-37791"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "sequelize": "^6.21.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
