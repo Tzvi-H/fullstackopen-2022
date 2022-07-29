@@ -3,15 +3,24 @@ POST http://localhost:3001/api/login
 Content-Type: application/json
 
 {
-  "username": "16guitar",
+  "username": "16guitar2",
   "password": "secret"
 }
 
 ###
 POST http://localhost:3001/api/notes
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE2Z3VpdGFyIiwiaWQiOjEsImlhdCI6MTY1OTA1MzIxMX0.-U9NYE08v7BW7eEDOPW9TPxEJkp-7iRxEcfFEi5nfXE
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE2Z3VpdGFyIiwiaWQiOjEsImlhdCI6MTY1OTA1NDgwM30.FsOSQLlnwK7hl8SPpvsW99prm9y-0qJKSR5xYCm92ws
 Content-Type: application/json
 
 {
   "content": "created from vscode"
+}
+
+###
+PUT http://localhost:3001/api/users/16guitar2
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjE2Z3VpdGFyIiwiaWQiOjEsImlhdCI6MTY1OTA1NDgwM30.FsOSQLlnwK7hl8SPpvsW99prm9y-0qJKSR5xYCm92ws
+
+{
+    "disabled": false
 }
