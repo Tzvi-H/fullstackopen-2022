@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require("sequelize");
+const { Model, DataTypes, Op } = require("sequelize");
 
 const { sequelize } = require("../util/db");
 
@@ -34,6 +34,32 @@ User.init(
     underscored: true,
     timestamps: false,
     modelName: "user",
+    defaultScope: {
+      where: {
+        disabled: false,
+      },
+    },
+    scopes: {
+      admin: {
+        where: {
+          admin: true,
+        },
+      },
+      disabled: {
+        where: {
+          disabled: true,
+        },
+      },
+      name(value) {
+        return {
+          where: {
+            name: {
+              [Op.iLike]: value,
+            },
+          },
+        };
+      },
+    },
   }
 );
 
